@@ -2,7 +2,7 @@
 
 # Features :  Go down for preview .
 - Multi Threads and the number of threads is fully controlable from config . 
-- CapSolver Supported
+- CapSolver Supported , ( My own solver coming soon ) tottaly free !
 - Enable IMAP / optional 
 - Proxies Support 
 - User Friendly
