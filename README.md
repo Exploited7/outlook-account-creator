@@ -1,13 +1,13 @@
 # ❗ Paid Version only - Fully Requests ❗
 
 # Features :  Go down for preview .
--# Multi Threads and the number of threads is fully controlable from config . 
--# CapSolver Supported
--# Enable IMAP / optional 
--# Proxies Support 
--# User Friendly
--# Fully Requests 
--# No accounts locks 
+- Multi Threads and the number of threads is fully controlable from config . 
+- CapSolver Supported
+- Enable IMAP / optional 
+- Proxies Support 
+- User Friendly
+- Fully Requests 
+- No accounts locks 
 -- Prices --
 Price : 150$ Source Code . 
 Currently we do not sell monthly / weekly plans .
