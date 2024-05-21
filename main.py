@@ -23,7 +23,7 @@ init()
 
 print(f'''
 
-{Fore.LIGHTCYAN_EX}
+{Fore.CYAN}
 
                 ░█████╗░██╗░░░██╗████████╗██╗░░░░░░█████╗░░█████╗░██╗░░██╗
                 ██╔══██╗██║░░░██║╚══██╔══╝██║░░░░░██╔══██╗██╔══██╗██║░██╔╝
@@ -217,16 +217,9 @@ def gen():
 
     else:
         return None
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Connection": "keep-alive",
-        "Host": "fpt.live.com",
-        "Referer": "https://signup.live.com/",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-    }
+    
+    headers['Referer'] = "https://signup.live.com/"
+    headers['Host'] = "fpt.live.com"
     resp4 = session.get(
         fptLink1, headers=headers, cookies=cookies
     )  # -> https://fpt.live.com/?session_id=0ebabd70fbb44990a3d667010dc1e625&amp;CustomerId=33e01921-4d64-4f8c-a055-5bdaffd5e33d&amp;PageId=SU
@@ -248,16 +241,9 @@ def gen():
 
     else:
         return None
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Connection": "keep-alive",
-        "Host": "fpt2.microsoft.com",
-        "Referer": "https://fpt.live.com/",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-    }
+    
+    headers['Referer'] = "https://fpt.live.com/"
+    headers['Host'] = "fpt2.microsoft.com"
     resp5 = session.get(
         f"https://fpt2.microsoft.com/Clear.HTML?ctx=Ls1.0&amp;wl=False&amp;session_id={txnId}&amp;id={rid}&amp;w={ticks}&amp;tkt={authKey}&amp;CustomerId={cid}",
         headers=headers,
@@ -308,6 +294,8 @@ def gen():
         headers=headers,
         json=data,
     )
+    # print('resp6 : ',resp6.text)
+
     apiCanary = resp6.json()["apiCanary"]
     telemetryContext = resp6.json()["telemetryContext"]
     timestamp = str(int(time.time() * 1000))
@@ -362,6 +350,8 @@ def gen():
         headers=headers,
         json=data,
     )
+    # print('res : ',res.text)
+
     apiCanary = res.json()["apiCanary"]
     telemetryContext = res.json()["telemetryContext"]
 
@@ -407,7 +397,7 @@ def gen():
         "scid": 100118,
         "hpgid": 200650,
     }
-    headers = {
+    headersx = {
         "Accept": "application/json",
         "Accept-Encoding": "gzip, deflate, br, zstd",
         "Accept-Language": "en-US,en;q=0.9",
@@ -429,9 +419,8 @@ def gen():
         "x-ms-apiVersion": "2",
     }
     resp7 = session.post(
-        "https://signup.live.com/API/CreateAccount?lic=1", headers=headers, json=data
+        "https://signup.live.com/API/CreateAccount?lic=1", headers=headersx, json=data
     )
-
     resp_data = json.loads(resp7.text)
 
     if "error" in resp_data:
@@ -464,7 +453,7 @@ def gen():
             "data": '{"blob": "' + arkoseBlob + '"}',
         }
     )
-    print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] {Fore.LIGHTCYAN_EX}[+] Solved Captcha: {solution[0:10]}****")
+    print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.CYAN} Solved Captcha {solution.get('token')[0:25]}****")
 
     timestamp = str(int(time.time() * 1000))
 
@@ -491,28 +480,12 @@ def gen():
         "scid": 100118,
         "hpgid": 201040,
     }
-
-    headers = {
-        "Accept": "application/json",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Accept-Language": "en-US,en;q=0.9",
-        "canary": apiCanary,
-        "Connection": "keep-alive",
-        "Content-Type": "application/json",
-        "Cookie": f'amsc={coo3.get("amsc")}; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}',
-        "Host": "signup.live.com",
-        "hpgid": "200650",
-        "Origin": "https://signup.live.com",
-        "Referer": "https://signup.live.com/?lic=1",
-        "scid": "100118",
-
-        "tcxt": telemetryContext,
-        "uaid": uaid,
-        "uiflvr": "1001",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-        "x-ms-apiTransport": "xhr",
-        "x-ms-apiVersion": "2",
-    }
+    headers['Content-Length'] = str(len(json.dumps(data)))
+    headers['tcxt'] = telemetryContext
+    headers['uaid'] = uaid
+    headers['canary'] = apiCanary
+    headers['Cookie'] = f'amsc={coo3.get("amsc")}; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}'
+    
     x = session.post(
         "https://signup.live.com/API/ReportClientEvent?lic=1",
         headers=headers,
@@ -545,33 +518,19 @@ def gen():
         "scid": 100118,
         "hpgid": 201040,
     }
+    # headers['Content-Length'] = str(len(json.dumps(data)))
+    headers.pop('Content-Length')
+    headers['tcxt'] = telemetryContext
+    headers['uaid'] = uaid
+    headers['canary'] = apiCanary
+    headers['Cookie'] = f'amsc={coo3.get("amsc")}; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}'
 
-    headers = {
-        "Accept": "application/json",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Accept-Language": "en-US,en;q=0.9",
-        "canary": apiCanary,
-        "Connection": "keep-alive",
-        "Content-Type": "application/json",
-        "Cookie": f'amsc={coo3.get("amsc")}; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}',
-        "Host": "signup.live.com",
-        "hpgid": "200650",
-        "Origin": "https://signup.live.com",
-        "Referer": "https://signup.live.com/?lic=1",
-        "scid": "100118",
-
-        "tcxt": telemetryContext,
-        "uaid": uaid,
-        "uiflvr": "1001",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-        "x-ms-apiTransport": "xhr",
-        "x-ms-apiVersion": "2",
-    }
     c = session.post(
         "https://signup.live.com/API/ReportClientEvent?lic=1",
         headers=headers,
         json=data,
     )
+    # print('c:',c.text)
     apiCanary = c.json()["apiCanary"]
     telemetryContext = c.json()["telemetryContext"]
     current_time = datetime.utcnow()
@@ -619,34 +578,17 @@ def gen():
         "scid": 100118,
         "hpgid": 201040,
     }
-    headers = {
-        "Accept": "application/json",
-        "Accept-Encoding": "gzip, deflate, br, zstd",
-        "Accept-Language": "en-US,en;q=0.9",
-        "canary": apiCanary,
-        "Connection": "keep-alive",
-        "Content-Length": str(len(json.dumps(data))),
-        "Content-Type": "application/json",
-        "Cookie": f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}',
-        "Host": "signup.live.com",
-        "hpgid": "200650",
-        "Origin": "https://signup.live.com",
-        "Referer": "https://signup.live.com/?lic=1",
-        "scid": "100118",
-
-        "tcxt": telemetryContext,
-        "uaid": uaid,
-        "uiflvr": "1001",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-        "x-ms-apiTransport": "xhr",
-        "x-ms-apiVersion": "2",
-    }
-
+    
+    headersx.pop('Content-Length')
+    headersx['Cookie'] = f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}'
+    headersx['tcxt'] = telemetryContext
+    headersx['uaid'] = uaid
+    headersx['canary'] = apiCanary
     d = session.post(
         "https://signup.live.com/API/CreateAccount?lic=1", headers=headers, json=data
     )
     if d.status_code == 200:
-        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] {Fore.LIGHTCYAN_EX}[+] Account created successfully: {email}")
+        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.LIGHTCYAN_EX} Account created {email}:{password}")
 
         with open("output/Genned.txt", "a") as f:
             f.write(f"{email}:{password}\n")
