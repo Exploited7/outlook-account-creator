@@ -1,6 +1,6 @@
-# ❗ Paid Version only - Fully Requests ❗
+# ⭐ Support me with a start so i update every time it get patched
 
-# Features :  Go down for preview .
+# Features : 
 - Multi Threads and the number of threads is fully controlable from config . 
 - CapSolver Supported , ( My own solver coming soon ) tottaly free !
 - Enable IMAP / optional 
