@@ -5,4 +5,4 @@ tls-client
 colorama
 capsolver
 pyyaml
-execjs
+pyexecjs
