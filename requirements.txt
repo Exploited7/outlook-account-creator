@@ -1,0 +1,8 @@
+httpx
+beautifulsoup4
+requests
+tls-client
+colorama
+capsolver
+pyyaml
+execjs
