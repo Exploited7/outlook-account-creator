@@ -13,5 +13,5 @@
 - Please use good proxies , other wise it will be slow asf .
 - **❗ Reach me on discord : @justmanooo for paid projects or if you need help ❗** 
 
-# ❓ Need help ?
+# ❓ Need help 
 - Reach me on discord : @justmanooo
