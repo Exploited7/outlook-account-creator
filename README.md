@@ -10,5 +10,6 @@
 
 # 📷 Preview :
 ![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/9c56f593-0934-4732-8acc-4f302fa64181)
-**❗ Reach me on discord : @justmanooo for paid projects or if you need help ❗** \n Please use good proxies , other wise it will be slow asf .
+ - Please use good proxies , other wise it will be slow asf .
 
+- **❗ Reach me on discord : @justmanooo for paid projects or if you need help ❗** 
