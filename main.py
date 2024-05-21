@@ -126,6 +126,7 @@ def gen():
     proxy = get_next_proxy()
     # print(proxy)
     email = f"{generate_random_gmail()}@outlook.com"
+    proxies.pop(0)
     session = httpx.Client(proxies=f"http://{proxy}",verify=False)
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -366,8 +367,8 @@ def gen():
         "CheckAvailStateMap": [f"{email}:undefined"],
         "EvictionWarningShown": [],
         "UpgradeFlowToken": {},
-        "FirstName": config['firstN'],
-        "LastName": config['lastN'],
+        "FirstName": 'justmanooo',
+        "LastName": 'exploited7',
         "MemberNameChangeCount": 1,
         "MemberNameAvailableCount": 1,
         "MemberNameUnavailableCount": 0,
@@ -596,7 +597,6 @@ def gen():
         set_cmd_window_title(GENNED, LOCKED)
 
     else:
-        LOCKED += 1
         print(d.text)
 
 
