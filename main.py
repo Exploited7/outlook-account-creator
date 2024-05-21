@@ -120,11 +120,10 @@ def get_next_proxy():
     return proxy
 
 
-
 def gen():
     global GENNED, LOCKED
     proxy = get_next_proxy()
-    # print(proxy)
+ 
     email = f"{generate_random_gmail()}@outlook.com"
     session = httpx.Client(proxies=f"http://{proxy}",verify=False)
     headers = {
@@ -611,7 +610,7 @@ def main():
                 try:
                     future.result(timeout=60)
                 except Exception as e:
-                    print(e)
+                    # print(e)
                     pass
 
 if __name__ == "__main__":
