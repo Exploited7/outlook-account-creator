@@ -111,14 +111,14 @@ def read_proxies(file_path):
 proxies = read_proxies("input/proxies.txt")
 proxy_index = 0
 
-
 def get_next_proxy():
     global proxy_index
-    if proxy_index >= len(proxies):
-        proxy_index = 0
+    if not proxies:
+        return None
     proxy = proxies[proxy_index]
-    proxy_index += 1
+    proxy_index = (proxy_index + 1) % len(proxies)
     return proxy
+
 
 
 def gen():
