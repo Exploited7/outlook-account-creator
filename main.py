@@ -449,6 +449,7 @@ def gen():
             "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
             "websiteURL": "https://www.signu.live.com",
             "data": '{"blob": "' + arkoseBlob + '"}',
+            "AppID":'8C7C8A1B-0404-4E00-80C8-1C05A569CB57'
         }
     )
     print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.CYAN} Solved Captcha {solution.get('token')[0:25]}****")
