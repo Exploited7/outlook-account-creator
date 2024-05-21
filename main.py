@@ -597,6 +597,7 @@ def gen():
         set_cmd_window_title(GENNED, LOCKED)
 
     else:
+        LOCKED += 1
         print(d.text)
 
 
