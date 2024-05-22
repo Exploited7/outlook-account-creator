@@ -654,7 +654,7 @@ def main():
                 try:
                     future.result(timeout=60)
                 except Exception as e:
-                    print(e)
+                    # print(e)
                     pass
 
 if __name__ == "__main__":
