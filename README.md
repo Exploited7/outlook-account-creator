@@ -7,6 +7,9 @@
 - Fully Requests 
 - No accounts locks 
 
+# 🛠 Updates 
+- Fixed Capsolver Flags
+- Adding imap support later today
 
 # 📷 Preview :
 ![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/9c56f593-0934-4732-8acc-4f302fa64181)
