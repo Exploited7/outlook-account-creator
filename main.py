@@ -74,7 +74,6 @@ def solve(arkoseBlob):
 
             result = requests.post("https://api.capsolver.com/createTask", json=payload)
             task_id = result.json()["taskId"]
-            print(task_id)
             payload = {"taskId": task_id,"clientKey":apiKeyyy}
             while True:
                     result = requests.post("https://api.capsolver.com/getTaskResult",json=payload)
@@ -82,7 +81,6 @@ def solve(arkoseBlob):
                     if data["status"] != "ready":
                         continue
                     capkey = data["solution"]["token"]
-                    print(capkey)
                     return capkey
         except Exception as e:
             return solve(arkoseBlob)
