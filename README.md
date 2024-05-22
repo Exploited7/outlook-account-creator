@@ -2,7 +2,7 @@
 # 🚀 Features : 
 - Create outlook accounts easy and fast
 - Multi Threads and the number of threads is fully controlable from config . 
-- CapSolver Supported
+- CapSolver Supported ![url](https://www.capsolver.com/?utm_source=github&utm_medium=exploited)
 - Proxies Support 
 - Fully Requests 
 - No accounts locks 
