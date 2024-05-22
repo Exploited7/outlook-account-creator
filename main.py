@@ -11,7 +11,6 @@ import tls_client
 from execjs import compile as js_compile
 import requests
 from colorama import init, Fore
-import capsolver
 import yaml
 from datetime import datetime
 import concurrent.futures
@@ -59,7 +58,34 @@ def set_cmd_window_title(GENNED, LOCKED):
 
 set_cmd_window_title(GENNED, LOCKED)
 
+def solve(arkoseBlob):
+        try:
+            apiKeyyy = config['capKey']
+            payload = {
+                    "clientKey":apiKeyyy,
+                    "appId":"8C7C8A1B-0404-4E00-80C8-1C05A569CB57",
+                    "task": {
+                        "type": "FunCaptchaTaskProxyLess",
+                        "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
+                        "websiteURL": "https://www.signu.live.com",
+                        "data": '{"blob": "' + arkoseBlob + '"}'
+                    }
+                    }
 
+            result = requests.post("https://api.capsolver.com/createTask", json=payload)
+            task_id = result.json()["taskId"]
+            print(task_id)
+            payload = {"taskId": task_id,"clientKey":apiKeyyy}
+            while True:
+                    result = requests.post("https://api.capsolver.com/getTaskResult",json=payload)
+                    data = result.json()
+                    if data["status"] != "ready":
+                        continue
+                    capkey = data["solution"]["token"]
+                    print(capkey)
+                    return capkey
+        except Exception as e:
+            return solve(arkoseBlob)
 def get_timestamp():
     time_idk = time.strftime("%H:%M:%S")
     timestamp = f"{time_idk}"
@@ -441,18 +467,8 @@ def gen():
     else:
         return None
 
-    capsolver.api_key = config["capKey"]
-    # print('solving captcha')
-    solution = capsolver.solve(
-        {
-            "type": "FunCaptchaTaskProxyLess",
-            "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
-            "websiteURL": "https://www.signu.live.com",
-            "data": '{"blob": "' + arkoseBlob + '"}',
-            "AppID":'8C7C8A1B-0404-4E00-80C8-1C05A569CB57'
-        }
-    )
-    print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.CYAN} Solved Captcha {solution.get('token')[0:25]}****")
+    solution = solve(arkoseBlob)
+    print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.CYAN} Solved Captcha {solution[0:25]}****")
 
     timestamp = str(int(time.time() * 1000))
 
@@ -493,7 +509,7 @@ def gen():
     apiCanary = x.json()["apiCanary"]
     telemetryContext = x.json()["telemetryContext"]
 
-    zz = solution.get("token")
+    zz = solution
     data = {
         "pageApiId": 201040,
         "clientDetails": [],
