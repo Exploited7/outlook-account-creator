@@ -87,13 +87,11 @@ def solvecap(proxy,arkoseBlob):
                     }
 
             result = requests.post("https://api.capsolver.com/createTask", json=payload)
-            print(result.text)
             task_id = result.json()["taskId"]
             payload = {"taskId": task_id,"clientKey":apiKeyyy}
             while True:
                     result = requests.post("https://api.capsolver.com/getTaskResult",json=payload)
                     data = result.json()
-                    print(data)
                     if data["status"] != "ready":
                         continue
                     capkey = data["solution"]["token"]
