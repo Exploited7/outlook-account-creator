@@ -11,10 +11,12 @@ import tls_client
 from execjs import compile as js_compile
 import requests
 from colorama import init, Fore
+import capsolver
 import yaml
 from datetime import datetime
 import concurrent.futures
 import ctypes
+import imaplib
 
 config = yaml.safe_load(open("config.yml", "r").read())
 
@@ -38,6 +40,25 @@ print(f'''
 
 
 
+def imap_connect_outlook(email_user, email_pass):
+    imap_server = "outlook.office365.com"
+    imap_port = 993
+
+    try:
+        mail = imaplib.IMAP4_SSL(imap_server, imap_port)
+        
+        mail.login(email_user, email_pass)
+        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.LIGHTCYAN_EX} IMAP Connected {email}:{password}")
+
+        x = mail.select("inbox")
+        with open(f'./output/imap/{email[0:10]}.txt', 'a') as file:
+            file.write(x)
+        return mail
+
+    except imaplib.IMAP4.error as e:
+        print(e)
+        return None
+
 
 class Encryptor:
     def __init__(self):
@@ -50,40 +71,50 @@ class Encryptor:
 GENNED = 0
 LOCKED = 0
 
-
-def set_cmd_window_title(GENNED, LOCKED):
-    title = f"[Exploited7 justmanooo]  |  [ Generated : {GENNED} ]  [ Failed : {LOCKED} ]"
-    ctypes.windll.kernel32.SetConsoleTitleW(title)
-
-
-set_cmd_window_title(GENNED, LOCKED)
-
-def solve(arkoseBlob):
+def solvecap(proxy,arkoseBlob):
         try:
             apiKeyyy = config['capKey']
             payload = {
                     "clientKey":apiKeyyy,
                     "appId":"8C7C8A1B-0404-4E00-80C8-1C05A569CB57",
                     "task": {
-                        "type": "FunCaptchaTaskProxyLess",
+                        "type": "FunCaptchaTask",
                         "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
                         "websiteURL": "https://www.signu.live.com",
-                        "data": '{"blob": "' + arkoseBlob + '"}'
+                        "data": '{"blob": "' + arkoseBlob + '"}',
+                        "proxy":proxy
                     }
                     }
 
             result = requests.post("https://api.capsolver.com/createTask", json=payload)
+            print(result.text)
             task_id = result.json()["taskId"]
             payload = {"taskId": task_id,"clientKey":apiKeyyy}
             while True:
                     result = requests.post("https://api.capsolver.com/getTaskResult",json=payload)
                     data = result.json()
+                    print(data)
                     if data["status"] != "ready":
                         continue
                     capkey = data["solution"]["token"]
                     return capkey
+                    
         except Exception as e:
-            return solve(arkoseBlob)
+            print(e)
+            return solvecap(proxy,arkoseBlob)
+
+def set_cmd_window_title(GENNED, LOCKED):
+    title = f"[Exploited7 justmanooo]  |  [ Generated : {GENNED} ]  [ Failed : {LOCKED} ]"
+    ctypes.windll.kernel32.SetConsoleTitleW(title)
+
+
+# Example usage:
+# Replace 'server', 'username', and 'password' with your IMAP server details.
+# imap_connection = connect_to_imap('imap.example.com', 'your_username', 'your_password')
+
+set_cmd_window_title(GENNED, LOCKED)
+
+
 def get_timestamp():
     time_idk = time.strftime("%H:%M:%S")
     timestamp = f"{time_idk}"
@@ -465,7 +496,7 @@ def gen():
     else:
         return None
 
-    solution = solve(arkoseBlob)
+    solution = solvecap(proxy,arkoseBlob)
     print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.CYAN} Solved Captcha {solution[0:25]}****")
 
     timestamp = str(int(time.time() * 1000))
@@ -625,7 +656,7 @@ def main():
                 try:
                     future.result(timeout=60)
                 except Exception as e:
-                    # print(e)
+                    print(e)
                     pass
 
 if __name__ == "__main__":
