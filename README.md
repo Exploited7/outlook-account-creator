@@ -3,7 +3,7 @@
 - Create outlook accounts easy and fast
 - Multi Threads and the number of threads is fully controlable from config . 
 - [CapSolver](https://www.capsolver.com/?utm_source=github&utm_medium=exploited) Supported
-- [EZ-Captcha]([https://www.capsolver.com/?utm_source=github&utm_medium=exploited](https://www.ez-captcha.com/)) Supported
+- [EZ-Captcha](https://www.ez-captcha.com) Supported
 - Proxies Support 
 - Fully Requests 
 - No accounts locks 
