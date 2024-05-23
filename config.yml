@@ -1,3 +1,4 @@
-password: 'udPasswordFr1234567!' # password for accounts
-threads: 15  # number of threads
-capKey: ""  # capsolver key 
+password: 'UdPasswordFr1234567!'                       # password for accounts
+threads: 5                                           # THREADS Amount
+solver: ""                                           # CAPSOLVER , EZ-CAPTCHA                  EZ IS PROXYLESS CAPSOLVER NOT
+capKey: ""                                           # CAPTCHA KEY  
