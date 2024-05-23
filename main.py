@@ -40,24 +40,6 @@ print(f'''
 
 
 
-def imap_connect_outlook(email_user, email_pass):
-    imap_server = "outlook.office365.com"
-    imap_port = 993
-
-    try:
-        mail = imaplib.IMAP4_SSL(imap_server, imap_port)
-        
-        mail.login(email_user, email_pass)
-        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.LIGHTCYAN_EX} IMAP Connected {email}:{password}")
-
-        x = mail.select("inbox")
-        with open(f'./output/imap/{email[0:10]}.txt', 'a') as file:
-            file.write(x)
-        return mail
-
-    except imaplib.IMAP4.error as e:
-        print(e)
-        return None
 
 
 class Encryptor:
@@ -73,32 +55,57 @@ LOCKED = 0
 
 def solvecap(proxy,arkoseBlob):
         try:
-            apiKeyyy = config['capKey']
-            payload = {
-                    "clientKey":apiKeyyy,
-                    "appId":"8C7C8A1B-0404-4E00-80C8-1C05A569CB57",
-                    "task": {
-                        "type": "FunCaptchaTask",
-                        "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
-                        "websiteURL": "https://www.signu.live.com",
-                        "data": '{"blob": "' + arkoseBlob + '"}',
-                        "proxy":proxy
-                    }
-                    }
+            if config['solver'] == 'CAPSOLVER':
+                apiKeyyy = config['capKey']
+                payload = {
+                        "clientKey":apiKeyyy,
+                        "appId":"8C7C8A1B-0404-4E00-80C8-1C05A569CB57",
+                        "task": {
+                            "type": "FunCaptchaTask",
+                            "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
+                            "websiteURL": "https://www.signu.live.com",
+                            "data": '{"blob": "' + arkoseBlob + '"}',
+                            "proxy":proxy
+                        }
+                        }
 
-            result = requests.post("https://api.capsolver.com/createTask", json=payload)
-            task_id = result.json()["taskId"]
-            payload = {"taskId": task_id,"clientKey":apiKeyyy}
-            while True:
-                    result = requests.post("https://api.capsolver.com/getTaskResult",json=payload)
-                    data = result.json()
-                    if data["status"] != "ready":
-                        continue
-                    capkey = data["solution"]["token"]
-                    return capkey
+                result = requests.post("https://api.capsolver.com/createTask", json=payload)
+                task_id = result.json()["taskId"]
+                payload = {"taskId": task_id,"clientKey":apiKeyyy}
+                while True:
+                        result = requests.post("https://api.capsolver.com/getTaskResult",json=payload)
+                        data = result.json()
+                        if data["status"] != "ready":
+                            continue
+                        capkey = data["solution"]["token"]
+                        return capkey
+
+
+            elif config['solver'] == 'EZ-CAPTCHA':
+                apiKeyyy = config['capKey']
+                payload = {
+                        "clientKey": apiKeyyy,
+                        "task": {
+                        "websiteURL": "https://iframe.arkoselabs.com/",
+                        "websiteKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
+                        "type": "FuncaptchaTaskProxyless",
+                        "data": arkoseBlob,
+                        "funcaptchaApiJSSubdomain": ""
+                        }
+                        }
+
+                result = requests.post("https://api.ez-captcha.com/createTask", json=payload)
+                task_id = result.json()["taskId"]
+                payload = {"taskId": task_id,"clientKey":apiKeyyy}
+                while True:
+                        result = requests.post("https://api.ez-captcha.com/getTaskResult",json=payload)
+                        data = result.json()
+                        if data["status"] != "ready":
+                            continue
+                        capkey = data["solution"]["token"]
+                        return capkey
                     
         except Exception as e:
-            print(e)
             return solvecap(proxy,arkoseBlob)
 
 def set_cmd_window_title(GENNED, LOCKED):
@@ -345,7 +352,6 @@ def gen():
         headers=headers,
         json=data,
     )
-    # print('resp6 : ',resp6.text)
 
     apiCanary = resp6.json()["apiCanary"]
     telemetryContext = resp6.json()["telemetryContext"]
@@ -401,7 +407,6 @@ def gen():
         headers=headers,
         json=data,
     )
-    # print('res : ',res.text)
 
     apiCanary = res.json()["apiCanary"]
     telemetryContext = res.json()["telemetryContext"]
@@ -572,7 +577,6 @@ def gen():
         headers=headers,
         json=data,
     )
-    # print('c:',c.text)
     apiCanary = c.json()["apiCanary"]
     telemetryContext = c.json()["telemetryContext"]
     current_time = datetime.utcnow()
