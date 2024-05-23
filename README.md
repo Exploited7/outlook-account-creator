@@ -15,6 +15,14 @@
 # 📷 Preview :
 ![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/9c56f593-0934-4732-8acc-4f302fa64181)
 - Please use good proxies , other wise it will be slow asf .
+
+# ✅ Setup
+- pip install -r requirements.txt
+- open the config and fill it , solver value is the used solver name and capKey value is the clientkey of you the used solver, other values are clean and readable.
+- add proxies in input/proxies.txt filr , must be residential and follow this format : user:pass@ip:port
+- run main.py , enjoy using it
+- leave a star for the repo if worked as needed
+
 - **❗ Reach me on discord : @justmanooo for paid projects or if you need help ❗** 
 
 # ❓ Need help 
