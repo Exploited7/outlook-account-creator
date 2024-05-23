@@ -85,6 +85,7 @@ def solvecap(proxy,arkoseBlob):
                 apiKeyyy = config['capKey']
                 payload = {
                         "clientKey": apiKeyyy,
+                        "appId":"79258",
                         "task": {
                         "websiteURL": "https://iframe.arkoselabs.com/",
                         "websiteKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
