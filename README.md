@@ -1,5 +1,4 @@
 # ⭐ Support me with a start so i update every time it get patched
-# ❗ if the accounts not being created so thats ip problem .
 # 🚀 Features : 
 - Create outlook accounts easy and fast
 - Multi Threads and the number of threads is fully controlable from config . 
@@ -22,6 +21,9 @@
 - open the config and fill it , solver value is the used solver name and capKey value is the clientkey of you the used solver, other values are clean and readable.
 - add proxies in input/proxies.txt filr , must be residential and follow this format : user:pass@ip:port
 - run main.py , enjoy using it
+
+  # ❗ if the accounts not being created so thats ip problem . ( Genned but not created ) 
+
 - leave a star for the repo if worked as needed
 
 - **❗ Reach me on discord : @justmanooo for paid projects or if you need help ❗** 
