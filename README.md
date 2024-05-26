@@ -22,11 +22,10 @@
 - add proxies in input/proxies.txt filr , must be residential and follow this format : user:pass@ip:port
 - run main.py , enjoy using it
 
-  # ❗ if the accounts not being created so thats ip problem . ( Genned but not created ) 
+# ❗ if the accounts not being created so thats ip problem . ( Genned but not created ) 
 
 - leave a star for the repo if worked as needed
 
-- **❗ Reach me on discord : @justmanooo for paid projects or if you need help ❗** 
 
 # ❓ Need help 
 - Reach me on discord : @justmanooo
