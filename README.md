@@ -1,4 +1,5 @@
 # ⭐ Support me with a start so i update every time it get patched
+# ❗ if the accounts not being created so thats ip problem .
 # 🚀 Features : 
 - Create outlook accounts easy and fast
 - Multi Threads and the number of threads is fully controlable from config . 
