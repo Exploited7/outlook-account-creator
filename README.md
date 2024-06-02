@@ -29,3 +29,4 @@
 
 # ❓ Need help 
 - Reach me on discord : @justmanooo
+- DO NOT DM FOR DUMB REASONS
