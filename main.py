@@ -41,7 +41,6 @@ print(f'''
 
 
 
-
 class Encryptor:
     def __init__(self):
         self._cipher = js_compile(open("cipher_value.js").read())
@@ -75,38 +74,45 @@ def solvecap(proxy,arkoseBlob):
                 while True:
                         result = requests.post("https://api.capsolver.com/getTaskResult",json=payload)
                         data = result.json()
-                        if data["status"] != "ready":
+                        if data['status'] == 'failed':
+                            return solvecap(proxy,arkoseBlob)
+                        elif data["status"] != "ready":
                             continue
                         capkey = data["solution"]["token"]
                         return capkey
-
-
-            elif config['solver'] == 'EZ-CAPTCHA':
+            elif config['solver'] == "CAPBYPASS":
+                parts = proxy.split('@')
+                if len(parts) == 2:
+                    user_pass, ip_port = parts
+                    proxy = f"{ip_port}:{user_pass}"
                 apiKeyyy = config['capKey']
                 payload = {
-                        "clientKey": apiKeyyy,
-                        "appId":"79258",
+                        "clientKey":apiKeyyy,
                         "task": {
-                        "websiteURL": "https://iframe.arkoselabs.com/",
-                        "websiteKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
-                        "type": "FuncaptchaTaskProxyless",
-                        "data": arkoseBlob,
-                        "funcaptchaApiJSSubdomain": ""
+                            "type": "FunCaptchaTask",
+                            "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
+                            "websiteURL": "https://www.signu.live.com",
+                            "data": "{\"blob\": \""+arkoseBlob+"\"}",
+                            "proxy":proxy
+                            
                         }
                         }
 
-                result = requests.post("https://api.ez-captcha.com/createTask", json=payload)
+                result = requests.post("https://capbypass.com/api/createTask", json=payload)
                 task_id = result.json()["taskId"]
                 payload = {"taskId": task_id,"clientKey":apiKeyyy}
                 while True:
-                        result = requests.post("https://api.ez-captcha.com/getTaskResult",json=payload)
+                        result = requests.post("https://capbypass.com/api/getTaskResult",json=payload)
                         data = result.json()
-                        if data["status"] != "ready":
+                        if data['errorId'] == 'FAILED':
+                            return solvecap(proxy,arkoseBlob)
+                        elif data["status"] != "DONE":
                             continue
-                        capkey = data["solution"]["token"]
+                        capkey = data["solution"]
                         return capkey
                     
         except Exception as e:
+            print('Failed to solve captcha.')
             return solvecap(proxy,arkoseBlob)
 
 def set_cmd_window_title(GENNED, LOCKED):
@@ -114,9 +120,6 @@ def set_cmd_window_title(GENNED, LOCKED):
     ctypes.windll.kernel32.SetConsoleTitleW(title)
 
 
-# Example usage:
-# Replace 'server', 'username', and 'password' with your IMAP server details.
-# imap_connection = connect_to_imap('imap.example.com', 'your_username', 'your_password')
 
 set_cmd_window_title(GENNED, LOCKED)
 
@@ -183,6 +186,8 @@ def get_next_proxy():
 
 def gen():
     global GENNED, LOCKED
+    encAttemptToken = ""
+    arkoseBlob = ""
     proxy = get_next_proxy()
  
     email = f"{generate_random_gmail()}@outlook.com"
@@ -659,7 +664,7 @@ def main():
                 try:
                     future.result(timeout=60)
                 except Exception as e:
-                    # print(e)
+                    #print(e)
                     pass
 
 if __name__ == "__main__":
