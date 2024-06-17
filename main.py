@@ -80,6 +80,34 @@ def solvecap(proxy,arkoseBlob):
                             continue
                         capkey = data["solution"]["token"]
                         return capkey
+
+
+            elif config['solver'] == 'EZ-CAPTCHA':
+                apiKeyyy = config['capKey']
+                payload = {
+                        "clientKey": apiKeyyy,
+                        "task": {
+                        "websiteURL": "https://iframe.arkoselabs.com/",
+                        "websiteKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
+                        "type": "FuncaptchaTaskProxyless",
+                        "data": arkoseBlob,
+                        "funcaptchaApiJSSubdomain": ""
+                        }
+                        }
+
+                result = requests.post("https://api.ez-captcha.com/createTask", json=payload)
+                task_id = result.json()["taskId"]
+                payload = {"taskId": task_id,"clientKey":apiKeyyy}
+                while True:
+                        result = requests.post("https://api.ez-captcha.com/getTaskResult",json=payload)
+                        data = result.json()
+                        if data['status'] == 'failed':
+                            return solvecap(proxy,arkoseBlob)
+                        elif data["status"] != "ready":
+                            continue
+                        capkey = data["solution"]["token"]
+                        return capkey
+
             elif config['solver'] == "CAPBYPASS":
                 parts = proxy.split('@')
                 if len(parts) == 2:
@@ -104,8 +132,8 @@ def solvecap(proxy,arkoseBlob):
                 while True:
                         result = requests.post("https://capbypass.com/api/getTaskResult",json=payload)
                         data = result.json()
-                        if data['errorId'] == 'FAILED':
-                            return solvecap(proxy,arkoseBlob)
+                        if data['errorId'] == 1:
+                            return None
                         elif data["status"] != "DONE":
                             continue
                         capkey = data["solution"]
@@ -113,7 +141,7 @@ def solvecap(proxy,arkoseBlob):
                     
         except Exception as e:
             print('Failed to solve captcha.')
-            return solvecap(proxy,arkoseBlob)
+            return None
 
 def set_cmd_window_title(GENNED, LOCKED):
     title = f"[Exploited7 justmanooo]  |  [ Generated : {GENNED} ]  [ Failed : {LOCKED} ]"
@@ -188,6 +216,8 @@ def gen():
     global GENNED, LOCKED
     encAttemptToken = ""
     arkoseBlob = ""
+    dfpRequestId = ""
+    repMapRequestIdentifierDetails = ""
     proxy = get_next_proxy()
  
     email = f"{generate_random_gmail()}@outlook.com"
@@ -506,6 +536,8 @@ def gen():
         return None
 
     solution = solvecap(proxy,arkoseBlob)
+    if solution == None:
+        return "Failed"
     print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.CYAN} Solved Captcha {solution[0:25]}****")
 
     timestamp = str(int(time.time() * 1000))
