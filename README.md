@@ -15,8 +15,8 @@
 - Removed EZ-Captcha since its not working any more
 
 # 📷 Preview :
-![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/9c56f593-0934-4732-8acc-4f302fa64181)
-- Please use good proxies , other wise it will be slow asf .
+![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/6d0330a0-8075-4646-9e6a-94d06f5c9f5b)
+- Please use good proxies , other wise it will be slow asf or generating bad accounts .
 
 # ✅ Setup
 - pip install -r requirements.txt
