@@ -479,6 +479,7 @@ def gen():
         "SuggestedAccountType": "EASI",
         "HFId": fid,
         "encAttemptToken": "",
+        "dfpRequestId": "",
         "PhoneRepRiskScoreDetails": "",
         "RiskAssessmentDetails": "",
         "RepMapRequestIdentifierDetails": "",
@@ -651,6 +652,8 @@ def gen():
         "HFId": fid,
         "HType": "enforcement",
         "HSol": zz,
+        "encAttemptToken":"8u7wmey9q/heH64+9wOBFKyVrK0322+xp1XAdW/Vo2d723MB6kxp20OHx4jZ87UXhYPPx8ARUYE4RqfHm/iegpm4gnj2CUN10VxVU+WJj7eBoIHSYu2MLf4dPbwNa0c6a5xOoVAeQMnCayazn9HfDq3P0fUhfvIWs9Ex/+sMc7Y=:2:3",
+        "dfpRequestId":"992e381a-734b-4b2d-8408-db93ad1481f4",
         "HPId": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
         "PhoneRepRiskScoreDetails": "",
         "RepMapRequestIdentifierDetails": repMapRequestIdentifierDetails,
@@ -692,6 +695,7 @@ def main():
                 try:
                     future.result(timeout=60)
                 except Exception as e:
+                    # print(e)     
                     pass
 
 if __name__ == "__main__":
