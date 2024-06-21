@@ -538,7 +538,7 @@ def gen():
         solution = solvecap(proxy,arkoseBlob)
         if solution == None:
             return "Failed"
-        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] !! {Fore.CYAN} Solved Captcha  {Fore.LIGHTBLACK_EX}[ {solution[0:33]} ]")
+        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] ! {Fore.CYAN} Solved Captcha  {Fore.LIGHTBLACK_EX}[ {solution[0:33]} ]")
 
         timestamp = str(int(time.time() * 1000))
 
