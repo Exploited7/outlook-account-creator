@@ -30,4 +30,4 @@
 - DO NOT DM FOR DUMB REASONS
 -----------
 - Status : Working
-
+- Updated to last outlook version : 2024/06/21
