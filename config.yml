@@ -1,4 +1,3 @@
-password: 'UdPasswordFr1234567!'                       # password for accounts
 threads: 5                                           # THREADS Amount
 solver: ""                                           # CAPSOLVER , CAPBYPASS
 capKey: ""                                           # CAPTCHA KEY  
