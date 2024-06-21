@@ -214,10 +214,7 @@ def get_next_proxy():
 
 def gen():
     global GENNED, LOCKED
-    encAttemptToken = ""
-    arkoseBlob = ""
-    dfpRequestId = ""
-    repMapRequestIdentifierDetails = ""
+
     proxy = get_next_proxy()
  
     email = f"{generate_random_gmail()}@outlook.com"
@@ -482,7 +479,6 @@ def gen():
         "SuggestedAccountType": "EASI",
         "HFId": fid,
         "encAttemptToken": "",
-        "dfpRequestId": "",
         "PhoneRepRiskScoreDetails": "",
         "RiskAssessmentDetails": "",
         "RepMapRequestIdentifierDetails": "",
@@ -521,14 +517,16 @@ def gen():
             telemetryContext = error_data["telemetryContext"]
             if "data" in error_data:
                 data = json.loads(error_data["data"])
-                if "encAttemptToken" in data:
-                    encAttemptToken = data["encAttemptToken"]
+                if "riskAssessmentDetails" in data:
+                    RiskAssessmentDetails = data["riskAssessmentDetails"]
+                
                 if "repMapRequestIdentifierDetails" in data:
                     repMapRequestIdentifierDetails = data[
                         "repMapRequestIdentifierDetails"
                     ]
                 if "dfpRequestId" in data:
                     dfpRequestId = data["dfpRequestId"]
+                
                 if "arkoseBlob" in data:
                     arkoseBlob = data["arkoseBlob"]
 
@@ -654,14 +652,13 @@ def gen():
         "HType": "enforcement",
         "HSol": zz,
         "HPId": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
-        "encAttemptToken": encAttemptToken,
-        "dfpRequestId": dfpRequestId,
         "PhoneRepRiskScoreDetails": "",
-        "RiskAssessmentDetails": "",
         "RepMapRequestIdentifierDetails": repMapRequestIdentifierDetails,
         "scid": 100118,
         "hpgid": 201040,
     }
+   
+    data['RiskAssessmentDetails'] = RiskAssessmentDetails
     
     headersx.pop('Content-Length')
     headersx['Cookie'] = f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}'
@@ -673,7 +670,6 @@ def gen():
     )
     if d.status_code == 200:
         print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] [+] {Fore.LIGHTCYAN_EX} Account created {email}:{password}")
-
         with open("output/Genned.txt", "a") as f:
             f.write(f"{email}:{password}\n")
 
@@ -696,7 +692,6 @@ def main():
                 try:
                     future.result(timeout=60)
                 except Exception as e:
-                    #print(e)
                     pass
 
 if __name__ == "__main__":
