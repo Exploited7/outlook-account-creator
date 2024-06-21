@@ -9,8 +9,6 @@
 - No accounts locks 
 
 # 🛠 Updates 
-- Fixed Capsolver Flags
-- Added New solver ( Ez-captcha )
 - Added new solver ( capbypass )
 - Removed EZ-Captcha since its not working any more
 - Updated and working again ( 2024/06/21 )
