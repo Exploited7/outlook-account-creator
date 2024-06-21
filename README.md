@@ -13,6 +13,7 @@
 - Added New solver ( Ez-captcha )
 - Added new solver ( capbypass )
 - Removed EZ-Captcha since its not working any more
+- Updated and working again ( 2024/06/21 )
 
 # 📷 Preview :
 ![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/6d0330a0-8075-4646-9e6a-94d06f5c9f5b)
