@@ -14,9 +14,11 @@
 - Added new solver ( capbypass )
 - Removed EZ-Captcha since its not working any more
 - Updated and working again ( 2024/06/21 )
-
+- Better Error Handling
+- New UI
+- Randomizing password instead of loading from config
 # 📷 Preview :
-![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/6d0330a0-8075-4646-9e6a-94d06f5c9f5b)
+![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/e1c96825-4503-4045-a2eb-419c2a89a9d8)
 - Please use good proxies , other wise it will be slow asf or generating bad accounts .
 
 # ✅ Setup
