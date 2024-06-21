@@ -538,7 +538,7 @@ def gen():
         solution = solvecap(proxy,arkoseBlob)
         if solution == None:
             return "Failed"
-        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] ℹ️ {Fore.CYAN} Solved Captcha  {Fore.LIGHTBLACK_EX}[ {solution[0:33]} ]")
+        print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] !! {Fore.CYAN} Solved Captcha  {Fore.LIGHTBLACK_EX}[ {solution[0:33]} ]")
 
         timestamp = str(int(time.time() * 1000))
 
@@ -673,7 +673,7 @@ def gen():
             "https://signup.live.com/API/CreateAccount?lic=1", headers=headers, json=data
         )
         if d.status_code == 200:
-            print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] ✅ {Fore.LIGHTCYAN_EX} Account created {Fore.LIGHTBLACK_EX}[ {email}:{password} ]")
+            print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] # {Fore.LIGHTCYAN_EX} Account created {Fore.LIGHTBLACK_EX}[ {email}:{password} ]")
             with open("output/Genned.txt", "a") as f:
                 f.write(f"{email}:{password}\n")
 
