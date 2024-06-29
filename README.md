@@ -1,4 +1,6 @@
-# ⭐ Support me with a start so i update every time it get patched
+# ⭐ Support me with a star so I get motivated, as I spend a lot of time updating this repo.
+-----------
+
 # 🚀 Features : 
 - Create outlook accounts easy and fast
 - Multi Threads and the number of threads is fully controlable from config . 
@@ -29,5 +31,5 @@
 - Reach me on discord : @justmanooo
 - DO NOT DM FOR DUMB REASONS
 -----------
-- Status : Working
+- Status : Working | 2024/06/29
 - Updated to last outlook version : 2024/06/21
