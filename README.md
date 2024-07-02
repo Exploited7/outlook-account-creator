@@ -1,4 +1,4 @@
-# ⭐ this repo is patched at 07/02 | and i won't update it until the repo reach 100 star or you can just buy the paid version by contacting me
+# ⭐ Please support me with a star since i spend too much time on this repo !
 -----------
 
 # 🚀 Features : 
