@@ -1,4 +1,4 @@
-# ⭐ this repo is patched at Year : 2024 , month : 07 , day : 02 | and i won't update it until the repo reach 100 star or you can just buy the paid version.
+# ⭐ this repo is patched at Year : 2024 , month : 07 , day : 02 | and i won't update it until the repo reach 100 star or you can just buy the paid version ny contacting me
 -----------
 
 # 🚀 Features : 
