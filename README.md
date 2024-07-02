@@ -33,3 +33,5 @@
 -----------
 - Status : Working | 2024/06/29
 - Updated to last outlook version : 2024/06/21
+-----------
+Outlook account creator / generator Requests based . enjoy using it.
