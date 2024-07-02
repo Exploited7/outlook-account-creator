@@ -1,4 +1,4 @@
-# ⭐ Support me with a star so I get motivated, as I spend a lot of time updating this repo.
+# ⭐ this repo is patched at Year : 2024 , month : 07 , day : 02 | and i won't update it until the repo reach 100 star or you can just buy the paid version.
 -----------
 
 # 🚀 Features : 
