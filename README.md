@@ -1,4 +1,4 @@
-# ⭐ Please support me with a star since i spend too much time on this repo !
+# ⭐ Please support me with a star so i will update everytime it get patched.
 -----------
 
 # 🚀 Features : 
