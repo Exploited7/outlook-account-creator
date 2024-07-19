@@ -31,7 +31,7 @@
 - Reach me on discord : @justmanooo
 - DO NOT DM FOR DUMB REASONS
 -----------
-- Status : Working | 2024/06/29
-- Updated to last outlook version : 2024/06/21
+- Status : Patched
+- Selling the updated version on discord , and i will update the free one when the repo reach 100 stars
 -----------
 Outlook account creator / generator Requests based . enjoy using it.
