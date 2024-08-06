@@ -1,6 +1,6 @@
 # ⭐ Please support me with a star so i will update everytime it get patched.
 -----------
-
+- Read the readme carefully before dming me or opening a issue.
 # 🚀 Features : 
 - Create outlook accounts easy and fast
 - Multi Threads and the number of threads is fully controlable from config . 
@@ -17,6 +17,7 @@
 - Better Error Handling
 - New UI
 - Randomizing password instead of loading from config
+- Updated and working again ( 2024/08/06 ) , improved speed
 # 📷 Preview :
 ![image](https://github.com/Exploited7/outlook-account-creator/assets/143853197/e1c96825-4503-4045-a2eb-419c2a89a9d8)
 - Please use good proxies , other wise it will be slow asf or generating bad accounts .
@@ -28,10 +29,10 @@
 - run main.py , enjoy using it
 
 # ❓ Need help 
-- Reach me on discord : @justmanooo
+- Reach me on discord or telegram : @justmanooo 
 - DO NOT DM FOR DUMB REASONS
 -----------
-- Status : Patched
-- Selling the updated version on discord , and i will update the free one when the repo reach 100 stars
+- Status : Working - 8/6/2024
+- Use capbypass because capsolver is already patched and they asked me to remove it 
 -----------
 Outlook account creator / generator Requests based . enjoy using it.
