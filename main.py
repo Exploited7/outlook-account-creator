@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
 import re
+import tls_client
 import httpx
+from tls_client.exceptions import TLSClientExeption
+
 import base64
 import os
 import time
@@ -21,7 +24,6 @@ import imaplib
 config = yaml.safe_load(open("config.yml", "r").read())
 
 init()
-
 print(f'''
 
 {Fore.CYAN}
@@ -38,9 +40,6 @@ print(f'''
 
 ''')
 
-
-
-
 class Encryptor:
     def __init__(self):
         self._cipher = js_compile(open("cipher_value.js").read())
@@ -54,17 +53,17 @@ LOCKED = 0
 
 def solvecap(proxy,arkoseBlob):
         try:
-            if config['solver'] == 'CAPSOLVER':
+            if config['solver'] == 'CAPSOLVER': # down do not use
                 apiKeyyy = config['capKey']
                 payload = {
                         "clientKey":apiKeyyy,
                         "appId":"8C7C8A1B-0404-4E00-80C8-1C05A569CB57",
                         "task": {
-                            "type": "FunCaptchaTask",
+                            "type": "FunCaptchaTaskProxyLess",
                             "websitePublicKey": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
-                            "websiteURL": "https://www.signu.live.com",
+                            "websiteURL": "https://signup.live.com",
                             "data": '{"blob": "' + arkoseBlob + '"}',
-                            "proxy":proxy
+                            #"proxy": proxy
                         }
                         }
 
@@ -82,7 +81,7 @@ def solvecap(proxy,arkoseBlob):
                         return capkey
 
 
-            elif config['solver'] == 'EZ-CAPTCHA':
+            elif config['solver'] == 'EZ-CAPTCHA': # idk how is it going rn
                 apiKeyyy = config['capKey']
                 payload = {
                         "clientKey": apiKeyyy,
@@ -219,7 +218,13 @@ def gen():
         proxy = get_next_proxy()
     
         email = f"{generate_random()}@outlook.com"
-        session = httpx.Client(proxies=f"http://{proxy}",verify=False)
+        session = tls_client.Session(
+
+                client_identifier="chrome126",
+
+                random_tls_extension_order=True
+
+            )
         headers = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
             "Accept-Encoding": "gzip, deflate, br, zstd",
@@ -229,7 +234,7 @@ def gen():
             "Upgrade-Insecure-Requests": "1",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
         }
-        resp1 = session.get("https://signup.live.com/signup", headers=headers)
+        resp1 = session.get("https://signup.live.com/signup", headers=headers,proxy=f"http://{proxy}")
         soup = BeautifulSoup(resp1.text, "html.parser")
         link_tag = soup.find("a")
         if link_tag:
@@ -240,7 +245,7 @@ def gen():
         }
         headers["Host"] = "login.live.com"
 
-        resp2 = session.get(href_value, headers=headers, cookies=cookies)
+        resp2 = session.get(href_value, headers=headers, cookies=cookies,proxy=f"http://{proxy}")
 
         coo2 = resp2.cookies
         uaid = coo2.get("uaid")
@@ -249,7 +254,7 @@ def gen():
         resp3 = session.get(
             f"https://signup.live.com/signup?lic=1&amp;uaid={uaid}",
             headers=headers,
-            cookies=cookies
+            cookies=cookies,proxy=f"http://{proxy}"
         )
 
         coo3 = resp3.cookies
@@ -257,6 +262,7 @@ def gen():
             "amsc": coo3.get("amsc"),
         }
         js_content = resp3.text
+       
         match = re.search(r'https://fpt\.live\.com/\?[^"\']+', js_content)
         if match:
             fptLink1 = match.group(0)
@@ -264,18 +270,20 @@ def gen():
         api_canary_match = re.search(r'"apiCanary"\s*:\s*"([^"]+)"', js_content)
         if api_canary_match:
             api_canary_value = api_canary_match.group(1)
+            #print(api_canary_value)
+        else:
+            return None
+        api_canary_match = re.search(r'"sHipFid"\s*:\s*"([^"]+)"', js_content)
+        if api_canary_match:
+            fid = api_canary_match.group(1)
+            #print(fid)
         else:
             return None
         api_canary_match = re.search(r'"SKI"\s*:\s*"([^"]+)"', js_content)
         if api_canary_match:
             api_canary_value = api_canary_match.group(1)
         else:
-            okok = None
-        api_canary_match = re.search(r'"fid"\s*:\s*"([^"]+)"', js_content)
-        if api_canary_match:
-            fid = api_canary_match.group(1)
-        else:
-            return None
+            okok = None    
         hpgid_match = re.search(r'"hpgid"\s*:\s*(\d+)', js_content)
         if hpgid_match:
             hpgid_value = hpgid_match.group(1)
@@ -313,11 +321,18 @@ def gen():
         headers['Referer'] = "https://signup.live.com/"
         headers['Host'] = "fpt.live.com"
         resp4 = session.get(
-            fptLink1, headers=headers, cookies=cookies
+            fptLink1, headers=headers, cookies=cookies,proxy=f"http://{proxy}"
         )  # -> https://fpt.live.com/?session_id=0ebabd70fbb44990a3d667010dc1e625&amp;CustomerId=33e01921-4d64-4f8c-a055-5bdaffd5e33d&amp;PageId=SU
-
-        coo4 = resp4.cookies  # # fptctx2 , muid ( fake one )
+        coo4 = resp4.cookies  
+        cookies = {
+            "MUID": coo4.get("MUID"),
+        }
+        cookies = {
+            "fptctx2": coo4.get("fptctx2"),
+        }
+       # print(resp4.cookies)
         html_content = resp4.text
+        
         soup = BeautifulSoup(html_content, "html.parser")
         script_content = None
         for script in soup.find_all("script"):
@@ -338,8 +353,9 @@ def gen():
         headers['Host'] = "fpt2.microsoft.com"
         resp5 = session.get(
             f"https://fpt2.microsoft.com/Clear.HTML?ctx=Ls1.0&amp;wl=False&amp;session_id={txnId}&amp;id={rid}&amp;w={ticks}&amp;tkt={authKey}&amp;CustomerId={cid}",
-            headers=headers,
+            headers=headers,proxy=f"http://{proxy}"
         )
+        
 
         coo5 = resp5.cookies  # muid (real)
 
@@ -355,13 +371,14 @@ def gen():
         cookies = {
             "amsc": coo3.get("amsc"),
             "ai_session": generate_ai_session(),
-            "MUID": coo5.get("MUID"),
+            "MUID": coo4.get("MUID"),
             "fptctx2": coo4.get("fptctx2"),
             "_pxvid": "5bbc9e2f-13e0-11ef-ba24-69de9190bebd",
             "_px3": "303fa43a2a720026c7440d0b95bf90b9bd2853cd4060a3bf40a62798b034d00d%3AHyCHygk9SecaEgt3KTvuIvTZ7UdAeUOUjiMgZoHfiTA8ed388dghd%2FC0rCd30nc1JwFa3KUlvlqu02uYtSDijg%3D%3D%3A1000%3APccVug%2B7WU1UnCvkHBEXYSMbb%2B6ZLc7Ks32%2B8VJOCCEWlnC%2BuWf2R7GtC6RpX5gkv2NzIUEUgWFYJl9AXrARBqXndpQd0PVWYzb4O6Bp6OX%2Bt0FVnTQ419fwXou0BQY58QeLmqLdFXNQOiaYtvFV72KkC6PSgRD85ecuLSv%2FgUWKHEsbYzCaQ8nd0E%2FTxbHxXK47wJHHBXY4KoJEdQsYXRvPLGRZHPj%2Fy43PL75PPRk%3D",
             "_pxde": "34858ae13dd0c46cca55769a4bc1e180cd7753f885234f7f72262df626f2ab1d%3AeyJ0aW1lc3RhbXAiOjE3MTU5MDM5ODE4MzUsImZfa2IiOjAsImlwY19pZCI6W119",
         }
         decoded = decode_url(api_canary_value)
+        #print(decoded)
 
         headers = {
             "Accept": "application/json",
@@ -384,9 +401,9 @@ def gen():
         resp6 = session.post(
             f"https://signup.live.com/API/CheckAvailableSigninNames",
             headers=headers,
-            json=data,
+            json=data,proxy=f"http://{proxy}"
         )
-
+        #print(resp6.text)
         apiCanary = resp6.json()["apiCanary"]
         telemetryContext = resp6.json()["telemetryContext"]
         timestamp = str(int(time.time() * 1000))
@@ -423,7 +440,7 @@ def gen():
             "Connection": "keep-alive",
             "Content-Length": str(len(json.dumps(data))),
             "Content-Type": "application/json",
-            "Cookie": f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}',
+            "Cookie": f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo4.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}',
             "Host": "signup.live.com",
             "hpgid": "200640",
             "Origin": "https://signup.live.com",
@@ -439,7 +456,7 @@ def gen():
         res = session.post(
             "https://signup.live.com/API/ReportClientEvent?lic=1",
             headers=headers,
-            json=data,
+            json=data,proxy=f"http://{proxy}"
         )
 
         apiCanary = res.json()["apiCanary"]
@@ -495,7 +512,7 @@ def gen():
             "Connection": "keep-alive",
             "Content-Length": str(len(json.dumps(data))),
             "Content-Type": "application/json",
-            "Cookie": f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}',
+            "Cookie": f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo4.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}',
             "Host": "signup.live.com",
             "hpgid": "200650",
             "Origin": "https://signup.live.com",
@@ -509,7 +526,7 @@ def gen():
             "x-ms-apiVersion": "2",
         }
         resp7 = session.post(
-            "https://signup.live.com/API/CreateAccount?lic=1", headers=headersx, json=data
+            "https://signup.live.com/API/CreateAccount?lic=1", headers=headersx, json=data,proxy=f"http://{proxy}"
         )
         resp_data = json.loads(resp7.text)
 
@@ -531,6 +548,7 @@ def gen():
                     
                     if "arkoseBlob" in data:
                         arkoseBlob = data["arkoseBlob"]
+                        #print(arkoseBlob)
 
         else:
             return None
@@ -574,7 +592,7 @@ def gen():
         x = session.post(
             "https://signup.live.com/API/ReportClientEvent?lic=1",
             headers=headers,
-            json=data,
+            json=data,proxy=f"http://{proxy}"
         )
         apiCanary = x.json()["apiCanary"]
         telemetryContext = x.json()["telemetryContext"]
@@ -613,7 +631,7 @@ def gen():
         c = session.post(
             "https://signup.live.com/API/ReportClientEvent?lic=1",
             headers=headers,
-            json=data,
+            json=data,proxy=f"http://{proxy}"
         )
         apiCanary = c.json()["apiCanary"]
         telemetryContext = c.json()["telemetryContext"]
@@ -631,19 +649,24 @@ def gen():
             "UpgradeFlowToken": {},
             "FirstName": "manuel",
             "LastName": "emad",
+            "Password": password,
             "MemberNameChangeCount": 1,
             "MemberNameAvailableCount": 1,
             "MemberNameUnavailableCount": 0,
             "CipherValue": encrypted_value,
             "SKI": ski,
             "BirthDate": "17:11:1999",
-            "Country": "EG",
-            "IsOptOutEmailDefault": False,
-            "IsOptOutEmailShown": True,
-            "IsOptOutEmail": False,
-            "LW": True,
+            "IsUserConsentedToChinaPIPL": False,
+            "Country": "TR",
+            "IsOptOutEmailDefault": True,
+            "VerificationCode": None,
+            "IsOptOutEmailShown": 1,
+            "IsOptOutEmail": True,
+            "VerificationCodeSlt": None,
+            "PrefillMemberNamePassed": True,
+            "LW": 1,
             "SiteId": "68692",
-            "IsRDM": 0,
+            "IsRDM": False,
             "WReply": None,
             "ReturnUrl": None,
             "SignupReturnUrl": None,
@@ -653,25 +676,22 @@ def gen():
             "HFId": fid,
             "HType": "enforcement",
             "HSol": zz,
-            "encAttemptToken":"8u7wmey9q/heH64+9wOBFKyVrK0322+xp1XAdW/Vo2d723MB6kxp20OHx4jZ87UXhYPPx8ARUYE4RqfHm/iegpm4gnj2CUN10VxVU+WJj7eBoIHSYu2MLf4dPbwNa0c6a5xOoVAeQMnCayazn9HfDq3P0fUhfvIWs9Ex/+sMc7Y=:2:3",
-            "dfpRequestId":"992e381a-734b-4b2d-8408-db93ad1481f4",
             "HPId": "B7D8911C-5CC8-A9A3-35B0-554ACEE604DA",
-            "PhoneRepRiskScoreDetails": "",
-            "RepMapRequestIdentifierDetails": repMapRequestIdentifierDetails,
             "scid": 100118,
-            "hpgid": 201040,
+            "hpgid": 200639,
         }
     
         data['RiskAssessmentDetails'] = RiskAssessmentDetails
         
         headersx.pop('Content-Length')
-        headersx['Cookie'] = f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo5.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}'
+        headersx['Cookie'] = f'amsc={coo3.get("amsc")}; MicrosoftApplicationsTelemetryDeviceId=dfa874b8-9e17-4654-bb56-42187176e7ad; MUID={coo4.get("MUID")}; fptctx2={coo4.get("fptctx2")}; clrc={{"19861":["d7PFy/1V","+VC+x0R6","FutSZdvn"]}}; ai_session={generate_ai_session()}'
         headersx['tcxt'] = telemetryContext
         headersx['uaid'] = uaid
         headersx['canary'] = apiCanary
         d = session.post(
-            "https://signup.live.com/API/CreateAccount?lic=1", headers=headers, json=data
+            "https://signup.live.com/API/CreateAccount?lic=1", headers=headers, json=data,proxy=f"http://{proxy}"
         )
+        #print(d.text)
         if d.status_code == 200:
             print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] # {Fore.LIGHTCYAN_EX} Account created {Fore.LIGHTBLACK_EX}[ {email}:{password} ]")
             with open("output/Genned.txt", "a") as f:
@@ -682,10 +702,11 @@ def gen():
 
         else:
             print(d.text)
-    except httpx.ProxyError:
+    except TLSClientExeption:
         print(f"{Fore.LIGHTBLACK_EX}[{get_timestamp()}] ❌ {Fore.LIGHTRED_EX} Proxy Error     {Fore.LIGHTBLACK_EX}[ {proxy[0:33]} ]")
 
     except Exception as e:
+        # print(e)
         pass
 
 
