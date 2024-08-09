@@ -10,6 +10,7 @@ import time
 import random
 import string
 import json
+import platform
 import tls_client
 from execjs import compile as js_compile
 import requests
@@ -144,7 +145,8 @@ def solvecap(proxy,arkoseBlob):
 
 def set_cmd_window_title(GENNED, LOCKED):
     title = f"[Exploited7 justmanooo]  |  [ Generated : {GENNED} ]  [ Failed : {LOCKED} ]"
-    ctypes.windll.kernel32.SetConsoleTitleW(title)
+    if platform.system() == 'Windows':
+        ctypes.windll.kernel32.SetConsoleTitleW(title)
 
 
 
