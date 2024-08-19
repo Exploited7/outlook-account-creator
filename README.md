@@ -29,8 +29,8 @@
 - run main.py , enjoy using it
 
 # ❓ Need help 
-- Reach me on discord or telegram : @justmanooo 
-- DO NOT DM FOR DUMB REASONS
+- Reach us on discord : https://discord.gg/QYGEVYm5de
+- Looking for a paid project? Dm me @justmanooo on telegram or discord
 -----------
 - Status : Working - 8/6/2024
 - Use capbypass because capsolver is already patched and they asked me to remove it 
