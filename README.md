@@ -1,5 +1,7 @@
 # ⭐ Please support me with a star so i will update everytime it get patched.
 -----------
+# Currently the free version isn’t working we have another paid version that actually work , DM Me on telegram to buy it :)
+- @justmanooo on telegram
 - Read the readme carefully before dming me or opening a issue.
 # 🚀 Features : 
 - Create outlook accounts easy and fast
