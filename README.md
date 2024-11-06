@@ -1,5 +1,5 @@
 -----------
-# Currently the free version isn’t working we have another paid version that actually work , DM Me on telegram to buy it :)
+- Currently the free version isn’t working we have another paid version that actually work , DM Me on telegram to buy it :)
 - @justmanooo on telegram
 - Read the readme carefully before dming me or opening a issue.
 # 🚀 Features : 
