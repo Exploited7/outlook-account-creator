@@ -143,10 +143,13 @@ def solvecap(proxy,arkoseBlob):
             return None
 
 def set_cmd_window_title(GENNED, LOCKED):
-    title = f"[Exploited7 justmanooo]  |  [ Generated : {GENNED} ]  [ Failed : {LOCKED} ]"
-    ctypes.windll.kernel32.SetConsoleTitleW(title)
-
-
+    if platform.system() == 'Windows':
+  
+      title = f"[Exploited7 justmanooo]  |  [ Generated : {GENNED} ]  [ Failed : {LOCKED} ]"
+      ctypes.windll.kernel32.SetConsoleTitleW(title)
+  
+    else:
+      return " NOT MF WINDOWS
 
 set_cmd_window_title(GENNED, LOCKED)
 
