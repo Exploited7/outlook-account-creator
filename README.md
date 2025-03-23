@@ -30,7 +30,7 @@
 - run main.py , enjoy using it
 
 # ❓ Need help 
-- Reach us on discord : https://discord.gg/QYGEVYm5de
+- Reach us on discord : https://discord.gg/zzX8H8pZ
 - Looking for a paid project? Dm me @justmanooo on telegram or discord
 -----------
 - Status : Working - 8/6/2024
