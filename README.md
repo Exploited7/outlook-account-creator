@@ -1,6 +1,6 @@
 -----------
 - Currently the free version isn’t working we have another paid version that actually work , DM Me on telegram to buy it :)
-- @justmanooo on telegram
+- contact me by : [telegram](https://contact-mano.vercel.app/)
 - Read the readme carefully before dming me or opening a issue.
 # 🚀 Features : 
 - Create outlook accounts easy and fast
@@ -30,8 +30,8 @@
 - run main.py , enjoy using it
 
 # ❓ Need help 
-- Reach us on discord : https://discord.gg/zzX8H8pZ
-- Looking for a paid project? Dm me @justmanooo on telegram or discord
+- Reach us on discord : [https://discord.gg/zzX8H8pZ](https://contact-mano.vercel.app/)
+- Looking for a paid project? Dm me by : [telegram](https://contact-mano.vercel.app/)
 -----------
 - Status : Working - 8/6/2024
 - Use capbypass because capsolver is already patched and they asked me to remove it 
