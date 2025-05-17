@@ -30,7 +30,7 @@
 - run main.py , enjoy using it
 
 # ❓ Need help 
-- Reach us on discord : [https://discord.gg/zzX8H8pZ](https://contact-mano.vercel.app/)
+- Reach us on : [discord](https://contact-mano.vercel.app/)
 - Looking for a paid project? Dm me by : [telegram](https://contact-mano.vercel.app/)
 -----------
 - Status : Working - 8/6/2024
