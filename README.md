@@ -1,7 +1,7 @@
 -----------
 - Currently the free version isn’t working we have another paid version that actually work , DM Me on telegram to buy it :)
 - contact me by : [telegram](https://contact-mano.vercel.app/)
-- Read the readme carefully before dming me or opening a issue.
+- Free trials provided.
 # 🚀 Features : 
 - Create outlook accounts easy and fast
 - Multi Threads and the number of threads is fully controlable from config . 
