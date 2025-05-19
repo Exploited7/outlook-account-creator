@@ -1,4 +1,5 @@
 -----------
+# Paid version
 - Currently the free version isn’t working we have another paid version that actually work , DM Me on telegram to buy it :)
 - contact me by : [telegram](https://contact-mano.vercel.app/)
 - Free trials provided.
